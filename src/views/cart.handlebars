@@ -11,8 +11,9 @@
                         <th>Título</th>
                         <th>Descripción</th>
                         <th>Cantidad</th>
-                        <th>Precio Unitario</th>
+
                         <th>Precio</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,16 +38,24 @@
                             </div>
 
                         </td>
-                        <td>${{this.product.price}}</td>
+
                         <td>${{multiply this.product.price this.quantity}}</td>
+                        <td><button class="button is-danger is-small">X</button></td>
                     </tr>
                     {{/each}}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="5" class="has-text-right">Total</th>
+                        <th colspan="5" class="has-text-right">Total:</th>
                         <th>${{cartTotal cart.products}}</th>
                     </tr>
+                    <tr>
+                    <td colspan="6" class="has-text-right">
+                        <a href="/products" class="button is-dark">Seguir comprando</a>
+                        <button class="button is-danger">Vaciar Carrito</button>
+                        <button class="button is-success" disabled>Comprar</button>
+                    </td>
+                </tr>
                 </tfoot>
             </table>
         </div>

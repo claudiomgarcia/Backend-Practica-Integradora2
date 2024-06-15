@@ -3,6 +3,9 @@ import local from 'passport-local'
 import GitHubStrategy from 'passport-github2'
 import usersModel from '../dao/models/users.model.js'
 import { createHash, isValidPassword } from '../utils.js'
+import CartManager from '../dao/managers/mongomanagers/mongoCartManager.js'
+
+const cartManager = new CartManager()
 
 const LocalStrategy = local.Strategy
 
@@ -19,12 +22,15 @@ const initializePassport = () => {
                     return done(null, false, { message: 'El usuario ya existe' })
                 }
 
+                const newCart = await cartManager.createCart()
+
                 const newUser = {
                     first_name,
                     last_name,
                     email: username,
                     age,
-                    password: createHash(password)
+                    password: createHash(password),
+                    cart: newCart._id
                 }
 
                 let result = await usersModel.create(newUser)

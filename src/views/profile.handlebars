@@ -36,17 +36,10 @@
                     <p><strong>Apellido:</strong> {{user.last_name}}</p>
                     <p><strong>Email:</strong> {{user.email}}</p>
                     <p><strong>Edad:</strong> {{user.age}}</p>
-                    <p><strong>Rol:</strong> {{#if user.isAdmin}}Admin{{else}}User{{/if}}</p>
+                    <p><strong>Rol:</strong> {{user.role}}</p>
                 </div>
             </div>
             <hr>
-            <!-- Fila inferior -->
-            {{!-- <div class="columns">
-                <div class="column">
-                    <h2 class="title">Mi Carrito</h2>
-                    <p>Aquí se mostrarán los productos del carrito de compras.</p>
-                </div>
-            </div> --}}
         </div>
     </section>
 </div>

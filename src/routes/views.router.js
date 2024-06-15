@@ -17,9 +17,6 @@ viewsRouter.get('/products', isAuthenticated, async (req, res) => {
     try {
         const { limit, sort, query, page } = req.query
 
-        //Asigna un carrito por defecto o lo crea
-        const defaultCart = await cartManager.getOrCreateCart()
-
         const readProducts = await productManager.getProducts(limit, page, sort, query)
 
         const { products, totalProducts, totalPages, currentPage } = readProducts
@@ -39,6 +36,7 @@ viewsRouter.get('/products', isAuthenticated, async (req, res) => {
                 pageLink: generateLink('products', i, sort, limit, query)
             })
         }
+        const cart = await cartManager.getCartById(req.session.user.cart)
 
         res.render('products', {
             readProducts: products,
@@ -50,7 +48,7 @@ viewsRouter.get('/products', isAuthenticated, async (req, res) => {
             ascLink: generateLink('products', 1, 'asc', limit, query),
             descLink: generateLink('products', 1, 'desc', limit, query),
             pages,
-            defaultCart,
+            cart,
             user: req.session.user,
             title: "Todos los productos"
         })

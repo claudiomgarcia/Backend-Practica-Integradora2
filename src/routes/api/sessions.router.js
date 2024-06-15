@@ -38,8 +38,9 @@ sessionsRouter.post('/login', (req, res, next) => {
                     last_name: user.last_name,
                     email: user.email,
                     age: user.age,
-                    isAdmin: user.isAdmin
-                }
+                    cart: user.cart,
+                    role: user.role
+                }                
                 res.json({ redirectUrl: '/products' })
             } catch (err) {
                 res.status(500).send('Error al iniciar sesión')
