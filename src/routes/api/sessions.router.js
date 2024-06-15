@@ -40,7 +40,7 @@ sessionsRouter.post('/login', (req, res, next) => {
                     age: user.age,
                     cart: user.cart,
                     role: user.role
-                }                
+                }
                 res.json({ redirectUrl: '/products' })
             } catch (err) {
                 res.status(500).send('Error al iniciar sesión')
@@ -49,11 +49,11 @@ sessionsRouter.post('/login', (req, res, next) => {
     })(req, res, next)
 })
 
-sessionsRouter.get("/github", passport.authenticate("github",{scope:["user:email"]}),async(req,res)=>{})
+sessionsRouter.get("/github", passport.authenticate("github", { scope: ["user:email"] }), async (req, res) => { })
 
 
-sessionsRouter.get("/githubcallback",passport.authenticate("github",{failureRedirect:"/login"}),async(req,res)=>{
-    req.session.user=req.user
+sessionsRouter.get("/githubcallback", passport.authenticate("github", { failureRedirect: "/login" }), async (req, res) => {
+    req.session.user = req.user
     res.redirect("/")
 })
 
@@ -62,6 +62,15 @@ sessionsRouter.post('/logout', (req, res) => {
         if (err) res.status(500).json({ error: 'Error al cerrar sesión' })
         res.redirect('/login')
     })
+})
+
+sessionsRouter.get('/current', (req, res) => {
+    const session = req.session.user
+    if (!session) {
+        return res.status(401).json({ error: 'Sesión no iniciada' })
+    } else {
+        return res.json(session)
+    }
 })
 
 export default sessionsRouter
