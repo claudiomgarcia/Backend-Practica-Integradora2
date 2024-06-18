@@ -72,7 +72,7 @@ viewsRouter.get('/chat', (req, res) => {
     res.render('chat', { title: "Chat" })
 })
 
-viewsRouter.get('/carts/:cid', async (req, res) => {
+viewsRouter.get('/carts/:cid', isAuthenticated, async (req, res) => {
     try {
         const cid = req.params.cid
         const cart = await cartManager.getCartById(cid)
@@ -102,6 +102,12 @@ viewsRouter.get('/profile', isAuthenticated, (req, res) => {
             user: req.session.user,
             title: "Mi Cuenta"
         })
+})
+
+viewsRouter.get('*', async (req, res) => {
+    res.render(
+        '404',
+        { title: "Página no encontrada" })
 })
 
 export default viewsRouter
