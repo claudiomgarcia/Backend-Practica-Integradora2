@@ -13,6 +13,13 @@ export default {
         })
         return total
     },
+    hasProducts: function(products) {
+        let total = 0;
+        products.forEach(product => {
+            total += product.quantity
+        });
+        return total > 0
+    },    
     cartTotal: function (products) {
         let total = 0
         products.forEach(product => {

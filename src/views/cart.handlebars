@@ -27,10 +27,11 @@
 
                             <div class="field has-addons">
                                 <p class="control">
-                                    <button class="button is-danger"disabled>-</button>
+                                    <button class="button is-danger" disabled>-</button>
                                 </p>
                                 <p class="control">
-                                    <input class="input has-text-centered" type="text" value="{{this.quantity}}" style="width: 40px" disabled>
+                                    <input class="input has-text-centered" type="text" value="{{this.quantity}}"
+                                        style="width: 40px" disabled>
                                 </p>
                                 <p class="control">
                                     <button class="button is-success" disabled>+</button>
@@ -40,7 +41,12 @@
                         </td>
 
                         <td>${{multiply this.product.price this.quantity}}</td>
-                        <td><button class="button is-danger is-small">X</button></td>
+                        <td class="is-vcentered">
+                            <div class="has-text-centered">
+                                <button class="tag is-rounded is-delete" id="delete-product" data-cid="{{../cart._id}}"
+                                    data-pid="{{this.product._id}}"></button>
+                            </div>
+                        </td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -50,16 +56,19 @@
                         <th>${{cartTotal cart.products}}</th>
                     </tr>
                     <tr>
-                    <td colspan="6" class="has-text-right">
-                        <a href="/products" class="button is-dark">Seguir comprando</a>
-                        <button class="button is-danger">Vaciar Carrito</button>
-                        <button class="button is-success" disabled>Comprar</button>
-                    </td>
-                </tr>
+                        <td colspan="6" class="has-text-right">
+                            <a href="/products" class="button is-dark">Seguir comprando</a>
+                            {{#if (hasProducts cart.products)}}
+                            <button class="button is-danger" id="empty-cart" data-cid="{{cart._id}}">Vaciar
+                                Carrito</button>
+                            {{/if}}
+                            <button class="button is-success" disabled>Comprar</button>
+                        </td>
+                    </tr>
                 </tfoot>
             </table>
         </div>
     </section>
-
-
 </div>
+
+<script src="/js/cart.js"></script>
